@@ -4,14 +4,15 @@ import './App.css';
 import StarWars from './components/StarWars';
 
 const App = () => {
-  const [data, setData] = useState([]);
+  const [starWarsData, setStarWarsData] = useState([]);
+  console.log(starWarsData);
 
   useEffect(() => {
-    axios.get('https://swapi.co/api/people/1')
-    // axios.get('https://swapi.co/api/films')
+    axios
+    .get('https://swapi.co/api/people')
     .then(res => {
-      console.log(res.data);
-      setData(res.data)
+      console.log(res);
+      setStarWarsData(res.data.results)
     });
   }, []);
 
@@ -26,7 +27,9 @@ const App = () => {
   return (
     <div className="App">
       <h1 className="Header">React Wars</h1>
-      <StarWars Data={data} />
+      {starWarsData.map((data, i) => {
+        return <StarWars Data={data} key={i} />
+      })}
     </div>
   );
 }
